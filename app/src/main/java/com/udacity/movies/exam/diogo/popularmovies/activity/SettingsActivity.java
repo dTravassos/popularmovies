@@ -18,8 +18,7 @@ public class SettingsActivity extends AppCompatActivity implements SettingsView 
 
         setContentView(R.layout.activity_settings);
 
-        this.getSupportActionBar().setDisplayShowHomeEnabled(true);
-        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        buildActionBar();
 
         presenter.onCreate();
     }
@@ -31,5 +30,9 @@ public class SettingsActivity extends AppCompatActivity implements SettingsView 
         this.finish();
     }
 
-
+    private void buildActionBar() {
+        //the return hierarchy is in manifest
+       this.getSupportActionBar().setDisplayShowHomeEnabled(true);
+       this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
 }
