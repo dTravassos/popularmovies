@@ -6,4 +6,5 @@ public interface BasePresenter {
     void onPause();
     void onResume();
     void onDestroy();
+
 }

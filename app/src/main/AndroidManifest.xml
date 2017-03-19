@@ -20,7 +20,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.ListMoviesActivity"/>
+        <activity android:name=".activity.ListMoviesActivity" android:label="@string/title_list_movies"/>
+        <activity android:name=".activity.SettingsActivity" android:label="@string/menu_settings" android:parentActivityName=".activity.ListMoviesActivity"/>
+        
     </application>
 
 </manifest>
