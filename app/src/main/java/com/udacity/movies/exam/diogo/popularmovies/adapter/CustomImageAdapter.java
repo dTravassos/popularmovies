@@ -47,7 +47,7 @@ public class CustomImageAdapter extends BaseAdapter {
 
         ImageView posterView = (ImageView) convertView.findViewById(R.id.movie_item_image);
 
-        Glide.with(mContext).load(items.get(position).getThumbnailUrl()).placeholder(R.drawable.square_placeholder).centerCrop().into(posterView);
+        Glide.with(mContext).load(items.get(position).getThumbUrl()).placeholder(R.drawable.square_placeholder).centerCrop().into(posterView);
 
         return convertView;
     }

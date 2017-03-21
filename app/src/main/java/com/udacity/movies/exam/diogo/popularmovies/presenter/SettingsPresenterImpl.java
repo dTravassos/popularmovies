@@ -14,19 +14,4 @@ public class SettingsPresenterImpl implements BasePresenter{
     public void onCreate() {
 
     }
-
-    @Override
-    public void onPause() {
-
-    }
-
-    @Override
-    public void onResume() {
-
-    }
-
-    @Override
-    public void onDestroy() {
-
-    }
 }

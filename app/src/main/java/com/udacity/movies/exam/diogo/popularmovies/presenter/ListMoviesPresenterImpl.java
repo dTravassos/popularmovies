@@ -1,12 +1,20 @@
 package com.udacity.movies.exam.diogo.popularmovies.presenter;
 
-import com.udacity.movies.exam.diogo.popularmovies.model.Movie;
+import android.util.Log;
+
+import com.udacity.movies.exam.diogo.popularmovies.model.ResponseMovies;
+import com.udacity.movies.exam.diogo.popularmovies.network.MovieDbConnector;
 import com.udacity.movies.exam.diogo.popularmovies.view.ListMoviesView;
 
-import java.util.ArrayList;
-import java.util.List;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ListMoviesPresenterImpl implements BasePresenter {
+public class ListMoviesPresenterImpl implements BasePresenter, Callback<ResponseMovies> {
+
+    private static String TAG = ListMoviesPresenterImpl.class.getSimpleName();
 
     ListMoviesView view;
 
@@ -16,37 +24,34 @@ public class ListMoviesPresenterImpl implements BasePresenter {
 
     @Override
     public void onCreate() {
-        view.loadImageAdapter(fetchData());
+        fetchData();
     }
 
-    private List<Movie> fetchData() {
-        List<Movie> data = new ArrayList<Movie>();
-        data.add(new Movie("http://goo.gl/gEgYUd"));
-        data.add(new Movie("http://i.imgur.com/DvpvklR.png"));
-        data.add(new Movie("http://goo.gl/gEgYUd"));
-        data.add(new Movie("http://i.imgur.com/DvpvklR.png"));
-        data.add(new Movie("http://goo.gl/gEgYUd"));
-        data.add(new Movie("http://i.imgur.com/DvpvklR.png"));
-        data.add(new Movie("http://goo.gl/gEgYUd"));
-        data.add(new Movie("http://i.imgur.com/DvpvklR.png"));
-        data.add(new Movie("http://goo.gl/gEgYUd"));
-        data.add(new Movie("http://i.imgur.com/DvpvklR.png"));
+    private void fetchData() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(MovieDbConnector.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
-        return data;
+        MovieDbConnector service = retrofit.create(MovieDbConnector.class);
+
+        final Call<ResponseMovies> movies = service.listMovies("popular", "");
+
+        movies.enqueue(this);
     }
 
     @Override
-    public void onPause() {
-
+    public void onResponse(Call<ResponseMovies> call, Response<ResponseMovies> response) {
+        if(response.isSuccessful()) {
+            ResponseMovies movies = response.body();
+            view.loadImageAdapter(movies.getResults());
+        } else {
+            Log.e(TAG, response.errorBody().toString());
+        }
     }
 
     @Override
-    public void onResume() {
-
-    }
-
-    @Override
-    public void onDestroy() {
-
+    public void onFailure(Call<ResponseMovies> call, Throwable t) {
+        Log.e(TAG, t.getMessage());
     }
 }
