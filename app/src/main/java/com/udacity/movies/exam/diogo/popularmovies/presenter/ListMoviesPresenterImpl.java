@@ -3,6 +3,7 @@ package com.udacity.movies.exam.diogo.popularmovies.presenter;
 import android.content.Context;
 import android.util.Log;
 
+import com.udacity.movies.exam.diogo.popularmovies.R;
 import com.udacity.movies.exam.diogo.popularmovies.helpers.PermissionsHelper;
 import com.udacity.movies.exam.diogo.popularmovies.helpers.PreferenceHelper;
 import com.udacity.movies.exam.diogo.popularmovies.model.ResponseMovies;
@@ -32,15 +33,27 @@ public class ListMoviesPresenterImpl implements BasePresenter, Callback<Response
 
     public void loadView() {
         if (PermissionsHelper.isOnline((Context) view)) {
-            fetchData();
+            fetchPreferenceData();
         } else {
             view.internetLostDialog();
         }
     }
 
-    private void fetchData() {
+    private void fetchPreferenceData() {
         String sortBy = PreferenceHelper.getOrganizeMovieListType(getContext());
 
+        fetchData(sortBy);
+    }
+
+    public void fetchTopRatedMovies() {
+        fetchData(getContext().getResources().getString(R.string.pref_search_top_value));
+    }
+
+    public void fetchMostPopularMovies() {
+        fetchData(getContext().getResources().getString(R.string.pref_search_popular_value));
+    }
+
+    private void fetchData(String sortBy) {
         final Call<ResponseMovies> movies = repository.listBy(sortBy);
 
         movies.enqueue(this);

@@ -10,9 +10,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.GridView;
 import android.widget.Toast;
 
+import com.github.clans.fab.FloatingActionButton;
 import com.udacity.movies.exam.diogo.popularmovies.R;
 import com.udacity.movies.exam.diogo.popularmovies.adapter.CustomImageAdapter;
 import com.udacity.movies.exam.diogo.popularmovies.model.Movie;
@@ -33,6 +35,8 @@ public class ListMoviesActivity extends AppCompatActivity implements ListMoviesV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_movies);
+
+        initializeFloatingButtonsListeners();
 
         Log.d(TAG, "Initializing");
 
@@ -91,5 +95,24 @@ public class ListMoviesActivity extends AppCompatActivity implements ListMoviesV
     public void callSettingsActivity(Context context) {
         Intent intent = new Intent(context, SettingsActivity.class);
         context.startActivity(intent);
+    }
+
+    private void initializeFloatingButtonsListeners() {
+        FloatingActionButton btnTop = (FloatingActionButton) findViewById(R.id.menu_item_top_rated);
+        FloatingActionButton btnPopular = (FloatingActionButton) findViewById(R.id.menu_item_most_popular);
+
+        btnTop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.fetchTopRatedMovies();
+            }
+        });
+
+        btnPopular.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.fetchMostPopularMovies();
+            }
+        });
     }
 }
