@@ -10,13 +10,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.GridView;
 import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 import com.udacity.movies.exam.diogo.popularmovies.R;
 import com.udacity.movies.exam.diogo.popularmovies.adapter.CustomImageAdapter;
+import com.udacity.movies.exam.diogo.popularmovies.listeners.FloatingMenuListener;
 import com.udacity.movies.exam.diogo.popularmovies.model.Movie;
 import com.udacity.movies.exam.diogo.popularmovies.presenter.ListMoviesPresenterImpl;
 import com.udacity.movies.exam.diogo.popularmovies.view.ListMoviesView;
@@ -98,21 +99,12 @@ public class ListMoviesActivity extends AppCompatActivity implements ListMoviesV
     }
 
     private void initializeFloatingButtonsListeners() {
-        FloatingActionButton btnTop = (FloatingActionButton) findViewById(R.id.menu_item_top_rated);
-        FloatingActionButton btnPopular = (FloatingActionButton) findViewById(R.id.menu_item_most_popular);
+        final FloatingActionMenu menu = (FloatingActionMenu) findViewById(R.id.menu_floating);
+        final FloatingActionButton btnTop = (FloatingActionButton) findViewById(R.id.menu_item_top_rated);
+        final FloatingActionButton btnPopular = (FloatingActionButton) findViewById(R.id.menu_item_most_popular);
 
-        btnTop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.fetchTopRatedMovies();
-            }
-        });
-
-        btnPopular.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                presenter.fetchMostPopularMovies();
-            }
-        });
+        btnTop.setOnClickListener(new FloatingMenuListener(menu, presenter));
+        btnPopular.setOnClickListener(new FloatingMenuListener(menu, presenter));
     }
+
 }
