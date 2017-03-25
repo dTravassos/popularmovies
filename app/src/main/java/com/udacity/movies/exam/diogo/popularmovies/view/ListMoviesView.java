@@ -8,4 +8,8 @@ public interface ListMoviesView {
 
     void loadImageAdapter(List<Movie> items);
 
+    void internetLostDialog();
+
+    void alertGenericError();
+
 }

@@ -1,22 +1,25 @@
 package com.udacity.movies.exam.diogo.popularmovies.presenter;
 
+import android.content.Context;
 import android.util.Log;
 
+import com.udacity.movies.exam.diogo.popularmovies.helpers.PermissionsHelper;
+import com.udacity.movies.exam.diogo.popularmovies.helpers.PreferenceHelper;
 import com.udacity.movies.exam.diogo.popularmovies.model.ResponseMovies;
-import com.udacity.movies.exam.diogo.popularmovies.network.MovieDbConnector;
+import com.udacity.movies.exam.diogo.popularmovies.repository.RemoteMoviesRepository;
 import com.udacity.movies.exam.diogo.popularmovies.view.ListMoviesView;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ListMoviesPresenterImpl implements BasePresenter, Callback<ResponseMovies> {
 
     private static String TAG = ListMoviesPresenterImpl.class.getSimpleName();
 
-    ListMoviesView view;
+    private RemoteMoviesRepository repository = new RemoteMoviesRepository();
+
+    private ListMoviesView view;
 
     public ListMoviesPresenterImpl(ListMoviesView view) {
         this.view = view;
@@ -24,18 +27,21 @@ public class ListMoviesPresenterImpl implements BasePresenter, Callback<Response
 
     @Override
     public void onCreate() {
-        fetchData();
+       loadView();
+    }
+
+    public void loadView() {
+        if (PermissionsHelper.isOnline((Context) view)) {
+            fetchData();
+        } else {
+            view.internetLostDialog();
+        }
     }
 
     private void fetchData() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(MovieDbConnector.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+        String sortBy = PreferenceHelper.getOrganizeMovieListType(getContext());
 
-        MovieDbConnector service = retrofit.create(MovieDbConnector.class);
-
-        final Call<ResponseMovies> movies = service.listMovies("popular", "");
+        final Call<ResponseMovies> movies = repository.listBy(sortBy);
 
         movies.enqueue(this);
     }
@@ -47,7 +53,12 @@ public class ListMoviesPresenterImpl implements BasePresenter, Callback<Response
             view.loadImageAdapter(movies.getResults());
         } else {
             Log.e(TAG, response.errorBody().toString());
+            view.alertGenericError();
         }
+    }
+
+    private Context getContext() {
+        return (Context) view;
     }
 
     @Override

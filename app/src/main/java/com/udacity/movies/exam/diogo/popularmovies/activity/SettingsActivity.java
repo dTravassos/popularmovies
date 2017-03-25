@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.udacity.movies.exam.diogo.popularmovies.R;
+import com.udacity.movies.exam.diogo.popularmovies.fragment.SettingsFragment;
 import com.udacity.movies.exam.diogo.popularmovies.presenter.SettingsPresenterImpl;
 import com.udacity.movies.exam.diogo.popularmovies.view.SettingsView;
 
@@ -19,6 +20,11 @@ public class SettingsActivity extends AppCompatActivity implements SettingsView 
         setContentView(R.layout.activity_settings);
 
         buildActionBar();
+
+        if (savedInstanceState == null) {
+            getFragmentManager().beginTransaction().replace(android.R.id.content, new SettingsFragment()).commit();
+            getFragmentManager().executePendingTransactions();
+        }
 
         presenter.onCreate();
     }

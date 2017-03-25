@@ -1,14 +1,17 @@
 package com.udacity.movies.exam.diogo.popularmovies.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.GridView;
+import android.widget.Toast;
 
 import com.udacity.movies.exam.diogo.popularmovies.R;
 import com.udacity.movies.exam.diogo.popularmovies.adapter.CustomImageAdapter;
@@ -60,6 +63,29 @@ public class ListMoviesActivity extends AppCompatActivity implements ListMoviesV
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void alertGenericError() {
+        Toast toast = Toast.makeText(this, R.string.api_generic_error, Toast.LENGTH_LONG);
+        toast.show();
+    }
+
+    public void internetLostDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.dialog_title_internet_connection)
+                .setMessage(R.string.dialog_content_internet_connection)
+                .setPositiveButton((R.string.dialog_option_try_again), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        presenter.loadView();
+                    }
+                })
+                .setNegativeButton(R.string.dialog_option_close_app, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                        System.exit(0);
+                    }
+                })
+                .show();
     }
 
     public void callSettingsActivity(Context context) {

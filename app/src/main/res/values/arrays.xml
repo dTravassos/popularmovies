@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="prefs_search_entry_types">
+        <item>@string/pref_search_popular_tittle</item>
+        <item>@string/pref_search_top_tittle</item>
+    </string-array>
+
+    <string-array name="prefs_search_value_types">
+        <item>@string/pref_search_popular_value</item>
+        <item>@string/pref_search_top_value</item>
+    </string-array>
+</resources>
