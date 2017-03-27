@@ -1,4 +1,5 @@
-# popularmovies
+# Popular Movies
+![Version][app-image] 
 
 This project show Popular and top rated movies.
 
@@ -11,3 +12,7 @@ This project needs an api key to connect to MovieDB. To get your api key, access
 
 ## Demo
 
+![](https://github.com/dTravassos/popularmovies/blob/master/device-demo.gif)
+
+
+[app-image]: https://img.shields.io/badge/release-v1.0-green.svg
