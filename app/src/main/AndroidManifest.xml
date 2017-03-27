@@ -25,9 +25,15 @@
 
         <activity android:name=".activity.ListMoviesActivity" android:label="@string/title_list_movies"/>
 
-        <activity android:name=".activity.SettingsActivity" android:label="@string/title_settings"
+        <activity android:name=".activity.MovieDetailActivity" android:label="@string/title_list_detailing"
                         android:parentActivityName=".activity.ListMoviesActivity">
             <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                       android:value=".activity.SettingsActivity" />
+        </activity>
+
+        <activity android:name=".activity.SettingsActivity" android:label="@string/title_settings"
+                        android:parentActivityName=".activity.ListMoviesActivity">
             <meta-data android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activity.SettingsActivity" />
         </activity>

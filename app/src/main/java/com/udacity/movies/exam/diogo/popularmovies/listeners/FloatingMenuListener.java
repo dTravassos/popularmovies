@@ -23,7 +23,7 @@ public class FloatingMenuListener implements View.OnClickListener {
         if (R.id.menu_item_top_rated == v.getId()) {
             presenter.fetchTopRatedMovies();
         } else  if (R.id.menu_item_most_popular == v.getId()) {
-            presenter.fetchTopRatedMovies();
+            presenter.fetchMostPopularMovies();
         }
 
 

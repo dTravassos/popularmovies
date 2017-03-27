@@ -45,9 +45,11 @@ public class CustomImageAdapter extends BaseAdapter {
             convertView = LayoutInflater.from(mContext).inflate(R.layout.movie_item, parent, false);
         }
 
+        Movie movie = items.get(position);
+
         ImageView posterView = (ImageView) convertView.findViewById(R.id.movie_item_image);
 
-        Glide.with(mContext).load(items.get(position).getThumbUrl()).placeholder(R.drawable.square_placeholder).centerCrop().into(posterView);
+        Glide.with(mContext).load(movie.getPosterUrl()).placeholder(R.drawable.square_placeholder).centerCrop().into(posterView);
 
         return convertView;
     }

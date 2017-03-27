@@ -8,7 +8,7 @@ import com.udacity.movies.exam.diogo.popularmovies.helpers.PermissionsHelper;
 import com.udacity.movies.exam.diogo.popularmovies.helpers.PreferenceHelper;
 import com.udacity.movies.exam.diogo.popularmovies.model.ResponseMovies;
 import com.udacity.movies.exam.diogo.popularmovies.repository.RemoteMoviesRepository;
-import com.udacity.movies.exam.diogo.popularmovies.view.ListMoviesView;
+import com.udacity.movies.exam.diogo.popularmovies.view.ListView;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -20,9 +20,9 @@ public class ListMoviesPresenterImpl implements BasePresenter, Callback<Response
 
     private RemoteMoviesRepository repository = new RemoteMoviesRepository();
 
-    private ListMoviesView view;
+    private ListView view;
 
-    public ListMoviesPresenterImpl(ListMoviesView view) {
+    public ListMoviesPresenterImpl(ListView view) {
         this.view = view;
     }
 

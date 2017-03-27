@@ -6,6 +6,4 @@
     android:layout_height="match_parent"
     tools:context="com.udacity.movies.exam.diogo.popularmovies.activity.SplashActivity">
 
-
-
 </android.support.design.widget.CoordinatorLayout>

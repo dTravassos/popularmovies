@@ -17,14 +17,16 @@ import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 import com.udacity.movies.exam.diogo.popularmovies.R;
 import com.udacity.movies.exam.diogo.popularmovies.adapter.CustomImageAdapter;
+import com.udacity.movies.exam.diogo.popularmovies.constraints.BundleKeys;
 import com.udacity.movies.exam.diogo.popularmovies.listeners.FloatingMenuListener;
+import com.udacity.movies.exam.diogo.popularmovies.listeners.GridViewOnItemClickListener;
 import com.udacity.movies.exam.diogo.popularmovies.model.Movie;
 import com.udacity.movies.exam.diogo.popularmovies.presenter.ListMoviesPresenterImpl;
-import com.udacity.movies.exam.diogo.popularmovies.view.ListMoviesView;
+import com.udacity.movies.exam.diogo.popularmovies.view.ListView;
 
 import java.util.List;
 
-public class ListMoviesActivity extends AppCompatActivity implements ListMoviesView {
+public class ListMoviesActivity extends AppCompatActivity implements ListView {
 
     private static String TAG = ListMoviesActivity.class.getSimpleName();
 
@@ -47,6 +49,7 @@ public class ListMoviesActivity extends AppCompatActivity implements ListMoviesV
     public void loadImageAdapter(List<Movie> movies) {
         gridView = (GridView) this.findViewById(R.id.movei_grid_view);
         gridView.setAdapter(new CustomImageAdapter(this, movies));
+        gridView.setOnItemClickListener(new GridViewOnItemClickListener(this));
     }
 
     @Override
@@ -98,6 +101,16 @@ public class ListMoviesActivity extends AppCompatActivity implements ListMoviesV
         context.startActivity(intent);
     }
 
+    public void callMovieDetailActivity(Movie movie) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(BundleKeys.MOVIE_BUNDLED_KEY, movie);
+
+        Intent intent = new Intent(ListMoviesActivity.this, MovieDetailActivity.class);
+        intent.putExtras(bundle);
+
+        startActivity(intent);
+    }
+
     private void initializeFloatingButtonsListeners() {
         final FloatingActionMenu menu = (FloatingActionMenu) findViewById(R.id.menu_floating);
         final FloatingActionButton btnTop = (FloatingActionButton) findViewById(R.id.menu_item_top_rated);
@@ -106,5 +119,7 @@ public class ListMoviesActivity extends AppCompatActivity implements ListMoviesV
         btnTop.setOnClickListener(new FloatingMenuListener(menu, presenter));
         btnPopular.setOnClickListener(new FloatingMenuListener(menu, presenter));
     }
+
+
 
 }

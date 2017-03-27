@@ -4,12 +4,11 @@ import com.udacity.movies.exam.diogo.popularmovies.model.Movie;
 
 import java.util.List;
 
-public interface ListMoviesView {
+public interface ListView {
 
     void loadImageAdapter(List<Movie> items);
 
     void internetLostDialog();
 
     void alertGenericError();
-
 }

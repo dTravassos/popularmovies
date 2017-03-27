@@ -3,12 +3,16 @@
     <string name="title_activity_splash">Popular Movies</string>
     <string name="title_list_movies">Movies</string>
     <string name="title_settings">Settings</string>
+    <string name="title_list_detailing">Detail</string>
     <string name="menu_settings">Settings</string>
 
     <string name="dialog_title_internet_connection">Internet Connection Lost</string>
     <string name="dialog_content_internet_connection">You have no internet connection. Check it and try again</string>
     <string name="dialog_option_try_again">Try again?</string>
     <string name="dialog_option_close_app">Close App</string>
+
+    <string name="detail_synopsis_tittle">Synopsis</string>
+
 
     <string name="api_generic_error">Failed to get List Movies</string>
 
