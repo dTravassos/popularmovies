@@ -21,9 +21,9 @@ public class FloatingMenuListener implements View.OnClickListener {
         menu.close(true);
 
         if (R.id.menu_item_top_rated == v.getId()) {
-            presenter.fetchTopRatedMovies();
+            presenter.loadViewTopRatedMovies();
         } else  if (R.id.menu_item_most_popular == v.getId()) {
-            presenter.fetchMostPopularMovies();
+            presenter.loadViewMostPopularMovies();
         }
 
 

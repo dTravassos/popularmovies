@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.Toast;
 
@@ -33,6 +35,7 @@ public class ListMoviesActivity extends AppCompatActivity implements ListView {
     ListMoviesPresenterImpl presenter = new ListMoviesPresenterImpl(this);
 
     GridView gridView;
+    Button reconnectButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,8 @@ public class ListMoviesActivity extends AppCompatActivity implements ListView {
         setContentView(R.layout.activity_list_movies);
 
         initializeFloatingButtonsListeners();
+
+        initializeButtons();
 
         Log.d(TAG, "Initializing");
 
@@ -78,7 +83,7 @@ public class ListMoviesActivity extends AppCompatActivity implements ListView {
         toast.show();
     }
 
-    public void internetLostDialog() {
+    public void showInternetLostInfo() {
         new AlertDialog.Builder(this)
                 .setTitle(R.string.dialog_title_internet_connection)
                 .setMessage(R.string.dialog_content_internet_connection)
@@ -87,13 +92,16 @@ public class ListMoviesActivity extends AppCompatActivity implements ListView {
                         presenter.loadView();
                     }
                 })
-                .setNegativeButton(R.string.dialog_option_close_app, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                        System.exit(0);
-                    }
-                })
+                .setNegativeButton(R.string.dialog_option_close_dialog, null)
                 .show();
+    }
+
+    public void hideReconnectButton() {
+        reconnectButton.setVisibility(View.GONE);
+    }
+
+    public void showReconnectButton() {
+        reconnectButton.setVisibility(View.VISIBLE);
     }
 
     public void callSettingsActivity(Context context) {
@@ -120,6 +128,15 @@ public class ListMoviesActivity extends AppCompatActivity implements ListView {
         btnPopular.setOnClickListener(new FloatingMenuListener(menu, presenter));
     }
 
-
+    private void initializeButtons() {
+        reconnectButton = (Button) this.findViewById(R.id.main_reconnect_button);
+        reconnectButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hideReconnectButton();
+                presenter.loadView();
+            }
+        });
+    }
 
 }

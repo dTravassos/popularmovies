@@ -8,7 +8,11 @@ public interface ListView {
 
     void loadImageAdapter(List<Movie> items);
 
-    void internetLostDialog();
+    void showInternetLostInfo();
+
+    void showReconnectButton();
+
+    void hideReconnectButton();
 
     void alertGenericError();
 }

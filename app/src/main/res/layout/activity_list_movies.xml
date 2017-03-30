@@ -6,9 +6,16 @@
     android:layout_height="match_parent"
     tools:context="com.udacity.movies.exam.diogo.popularmovies.activity.ListMoviesActivity">
 
+    <Button
+        android:id="@+id/main_reconnect_button"
+        style="@style/LongButton"
+        android:visibility="gone"
+        android:text="@string/main_check_connection"/>
+
     <android.support.v4.widget.SwipeRefreshLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/swiperefresh"
+        android:id="@+id/main_swipe_part"
+        android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

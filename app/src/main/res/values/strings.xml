@@ -5,11 +5,12 @@
     <string name="title_settings">Settings</string>
     <string name="title_list_detailing">Detail</string>
     <string name="menu_settings">Settings</string>
+    <string name="main_check_connection">Check Connection</string>
 
     <string name="dialog_title_internet_connection">Internet Connection Lost</string>
     <string name="dialog_content_internet_connection">You have no internet connection. Check it and try again</string>
-    <string name="dialog_option_try_again">Try again?</string>
-    <string name="dialog_option_close_app">Close App</string>
+    <string name="dialog_option_try_again">Reconnect</string>
+    <string name="dialog_option_close_dialog">Cancel</string>
 
     <string name="detail_synopsis_tittle">Synopsis</string>
 
@@ -24,3 +25,4 @@
     <string name="pref_search_top_value">top_rated</string>
 
 </resources>
+

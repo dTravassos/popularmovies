@@ -32,24 +32,25 @@ public class ListMoviesPresenterImpl implements BasePresenter, Callback<Response
     }
 
     public void loadView() {
+        String sortBy = PreferenceHelper.getOrganizeMovieListType(getContext());
+
+        loadView(sortBy);
+    }
+
+    private void loadView(String searchParam) {
         if (PermissionsHelper.isOnline((Context) view)) {
-            fetchPreferenceData();
+            fetchData(searchParam);
         } else {
-            view.internetLostDialog();
+            view.showInternetLostInfo();
+            view.showReconnectButton();
         }
     }
 
-    private void fetchPreferenceData() {
-        String sortBy = PreferenceHelper.getOrganizeMovieListType(getContext());
-
-        fetchData(sortBy);
-    }
-
-    public void fetchTopRatedMovies() {
+    public void loadViewTopRatedMovies() {
         fetchData(getContext().getResources().getString(R.string.pref_search_top_value));
     }
 
-    public void fetchMostPopularMovies() {
+    public void loadViewMostPopularMovies() {
         fetchData(getContext().getResources().getString(R.string.pref_search_popular_value));
     }
 
