@@ -26,7 +26,17 @@ public class MovieDetailFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        movie = (Movie) getArguments().getSerializable(BundleKeys.MOVIE_BUNDLED_KEY);
+        if (savedInstanceState != null) {
+            movie = savedInstanceState.getParcelable(BundleKeys.MOVIE_BUNDLED_KEY);
+        } else {
+            movie = (Movie) getArguments().getParcelable(BundleKeys.MOVIE_BUNDLED_KEY);
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+       savedInstanceState.putParcelable(BundleKeys.MOVIE_BUNDLED_KEY, movie);
+       super.onSaveInstanceState(savedInstanceState);
     }
 
     @Nullable

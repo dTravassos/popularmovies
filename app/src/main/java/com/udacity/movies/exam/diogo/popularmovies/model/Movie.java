@@ -1,8 +1,9 @@
 package com.udacity.movies.exam.diogo.popularmovies.model;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class Movie implements Serializable {
+public class Movie implements Parcelable {
 
     private String id;
 
@@ -50,6 +51,22 @@ public class Movie implements Serializable {
         this.vote_count = vote_count;
         this.video = video;
         this.vote_average = vote_average;
+    }
+
+    private Movie(Parcel in) {
+        this.id = in.readString();
+        this.poster_path = in.readString();
+        this.adult = Boolean.valueOf(in.readString());
+        this.overview = in.readString();
+        this.release_date = in.readString();
+        this.original_title = in.readString();
+        this.original_language = in.readString();
+        this.title = in.readString();
+        this.backdrop_path = in.readString();
+        this.popularity = in.readString();
+        this.vote_count = in.readString();
+        this.video = Boolean.valueOf(in.readString());
+        this.vote_average = in.readString();
     }
 
     public String getId() {
@@ -162,5 +179,38 @@ public class Movie implements Serializable {
 
     public void setVote_average(String vote_average) {
         this.vote_average = vote_average;
+    }
+
+    public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
+        public Movie createFromParcel(Parcel in) {
+            return new Movie(in);
+        }
+
+        public Movie[] newArray(int size) {
+            return new Movie[size];
+        }
+    };
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+        dest.writeString(this.poster_path);
+        dest.writeString(String.valueOf(this.adult));
+        dest.writeString(this.overview);
+        dest.writeString(this.release_date);
+        dest.writeString(this.original_title);
+        dest.writeString(this.original_language);
+        dest.writeString(this.title);
+        dest.writeString(this.backdrop_path);
+        dest.writeString(this.popularity);
+        dest.writeString(this.vote_count);
+        dest.writeString(String.valueOf(this.video));
+        dest.writeString(this.vote_average);
     }
 }

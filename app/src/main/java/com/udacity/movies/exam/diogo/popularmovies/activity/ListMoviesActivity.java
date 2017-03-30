@@ -103,7 +103,7 @@ public class ListMoviesActivity extends AppCompatActivity implements ListView {
 
     public void callMovieDetailActivity(Movie movie) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable(BundleKeys.MOVIE_BUNDLED_KEY, movie);
+        bundle.putParcelable(BundleKeys.MOVIE_BUNDLED_KEY, movie);
 
         Intent intent = new Intent(ListMoviesActivity.this, MovieDetailActivity.class);
         intent.putExtras(bundle);
